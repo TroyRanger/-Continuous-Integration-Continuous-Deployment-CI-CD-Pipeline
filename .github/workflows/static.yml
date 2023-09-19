@@ -42,7 +42,7 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -t hello-world-web-app:1.0 -f Continuous-Integration-Continuous-Deployment-CI-CD-Pipeline/Dockerfile .
+          docker build -t hello-world-web-app:1.0 -f -Continuous-Integration-Continuous-Deployment-CI-CD-Pipeline/Dockerfile .
           docker images  # Display a list of Docker images for verification
 
       - name: Start Docker Container for Testing
