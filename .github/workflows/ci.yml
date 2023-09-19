@@ -1,4 +1,4 @@
-name: Hello World CI/CD
+name: Hello World CI
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
           docker build -t hello-world-web-app:1.0 -f -Continuous-Integration-Continuous-Deployment-CI-CD-Pipeline/Dockerfile .
           docker images  # Display a list of Docker images for verification
 
-      # Add additional steps for testing, pushing to a container registry, or deploying as needed
+   
 
 
   test:
@@ -61,45 +61,3 @@ jobs:
           docker stop hello-world-container
           docker rm hello-world-container
 
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Set up Docker
-        run: |
-          curl -fsSL https://get.docker.com | sh
-          sudo usermod -aG docker $USER
-          newgrp docker
-
-      - name: Log in to Docker Hub
-        env:
-          DOCKERHUB_USERNAME: ${{ secrets.troyranger }}
-          DOCKERHUB_TOKEN: ${{ secrets.dckr_pat_pvzASTd88DqN__jk87hH9MprqBw }}
-        run: |
-          echo "dckr_pat_pvzASTd88DqN__jk87hH9MprqBw" | docker login -u "troyranger" --password-stdin
-
-      - name: Pull Docker Image
-        run: |
-          docker login -u "troyranger" --password-stdin <<< "dckr_pat_pvzASTd88DqN__jk87hH9MprqBw"
-          docker pull troyranger/hello-world-web-app:1.0
-
-
-      # Add deployment steps here
-      - name: Start Docker Container for Deployment
-        run: |
-          docker run -d -p 8080:80 --name hello-world-container troyranger/hello-world-web-app:1.0
-          sleep 5  # Give the container some time to start
-
-      - name: Deploy to Localhost (Example)
-        run: |
-          # You can add deployment commands here.
-          # For a local deployment, this might involve copying files or configuring a local web server.
-          # This is a placeholder for your specific deployment requirements.
-
-      - name: Stop Docker Container
-        run: |
-          docker stop hello-world-container
-          docker rm hello-world-container
