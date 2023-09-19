@@ -1,4 +1,4 @@
-name: Hello World CI/CD
+name: Build Docker Image
 
 on:
   push:
@@ -13,10 +13,18 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
+      - name: Set Up Docker
+        uses: actions/setup-docker@v2
+        with:
+          docker-config: ${{ secrets.DOCKER_CONFIG }}  # If you have Docker Hub credentials
+
       - name: Build Docker Image
         run: |
-          docker build -t hello-world-web-app:1.0 .
+          docker build -t hello-world-web-app:1.0 F:\helloworldwebapp\-Continuous-Integration-Continuous-Deployment-CI-CD-Pipeline
           docker images  # Display a list of Docker images for verification
+
+      # Add additional steps for testing, pushing to a container registry, or deploying as needed
+
 
   test:
     runs-on: ubuntu-latest
