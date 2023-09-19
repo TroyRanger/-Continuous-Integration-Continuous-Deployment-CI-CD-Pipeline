@@ -14,7 +14,8 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build Docker Image
-        run: |
+        run: 
+           cd F:\helloworldwebapp\-Continuous-Integration-Continuous-Deployment-CI-CD-Pipeline>
           docker build -t hello-world-web-app:latest .
           docker images  # Display a list of Docker images for verification
 
