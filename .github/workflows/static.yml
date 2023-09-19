@@ -72,17 +72,25 @@ jobs:
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.troyranger }}
-          password: ${{ secrets.Knmlp@123 }}
+          password: ${{ secrets.dckr_pat_pvzASTd88DqN__jk87hH9MprqBw }}
 
       - name: Pull Docker Image
         run: |
           docker pull hello-world-web-app:1.0
 
       # Add deployment steps here
+      - name: Start Docker Container for Deployment
+        run: |
+          docker run -d -p 8080:80 --name hello-world-container hello-world-web-app:1.0
+          sleep 5  # Give the container some time to start
+
+      - name: Deploy to Localhost (Example)
+        run: |
+          # You can add deployment commands here.
+          # For a local deployment, this might involve copying files or configuring a local web server.
+          # This is a placeholder for your specific deployment requirements.
 
       - name: Stop Docker Container
         run: |
           docker stop hello-world-container
           docker rm hello-world-container
-
-
