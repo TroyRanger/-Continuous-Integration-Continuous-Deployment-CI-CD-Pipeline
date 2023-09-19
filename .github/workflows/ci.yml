@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Set up Docker
         run: |
@@ -23,10 +23,11 @@ jobs:
         run: |
           docker build -t hello-world-web-app:1.0 -f -Continuous-Integration-Continuous-Deployment-CI-CD-Pipeline/Dockerfile .
           docker images  # Display a list of Docker images for verification
+          
       - name: Initialize Terraform
         uses: hashicorp/setup-terraform@v1
-            with:
-             terraform_version: 1.0.0  # Specify your desired Terraform version
+        with:
+           terraform_version: 1.0.0  # Specify your desired Terraform version
 
 
 
@@ -35,7 +36,7 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Set up Docker
         run: |
