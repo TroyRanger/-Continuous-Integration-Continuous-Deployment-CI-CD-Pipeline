@@ -24,8 +24,33 @@ jobs:
           docker build -t hello-world-web-app:1.0 -f -Continuous-Integration-Continuous-Deployment-CI-CD-Pipeline/Dockerfile .
           docker images  # Display a list of Docker images for verification
 
-   
+  push:
+    runs-on: ubuntu-latest
 
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker
+        run: |
+          curl -fsSL https://get.docker.com | sh
+          sudo usermod -aG docker $USER
+          newgrp docker
+
+      - name: Log in to Docker Hub
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.troyranger }}
+          DOCKERHUB_TOKEN: ${{ secrets.dckr_pat_pvzASTd88DqN__jk87hH9MprqBw }}
+        run: |
+          echo "dckr_pat_pvzASTd88DqN__jk87hH9MprqBw" | docker login -u "troyranger" --password-stdin
+
+      - name: Tag Docker Image
+        run: |
+          docker tag hello-world-web-app:1.0 troyranger/hello-world-web-app:1.0
+
+      - name: Push Docker Image to Registry
+        run: |
+          docker push troyranger/hello-world-web-app:1.0
 
   test:
     runs-on: ubuntu-latest
@@ -37,17 +62,16 @@ jobs:
       - name: Set up Docker
         run: |
           curl -fsSL https://get.docker.com | sh
-          sudo usermod -aG docker $USER  # Add the current user to the docker group to run Docker without sudo
-          newgrp docker  # Activate the changes to group membership
+          sudo usermod -aG docker $USER
+          newgrp docker
 
-      - name: Build Docker Image
+      - name: Pull Docker Image for Testing
         run: |
-          docker build -t hello-world-web-app:1.0 -f -Continuous-Integration-Continuous-Deployment-CI-CD-Pipeline/Dockerfile .
-          docker images  # Display a list of Docker images for verification
+          docker pull troyranger/hello-world-web-app:1.0
 
       - name: Start Docker Container for Testing
         run: |
-          docker run -d -p 8080:80 --name hello-world-container hello-world-web-app:1.0
+          docker run -d -p 8080:80 --name hello-world-container troyranger/hello-world-web-app:1.0
           sleep 5  # Give the container some time to start
 
       - name: Run Tests (Example)
@@ -60,4 +84,3 @@ jobs:
         run: |
           docker stop hello-world-container
           docker rm hello-world-container
-
