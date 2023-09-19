@@ -1,45 +1,65 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+name: Hello World CI/CD
 
 on:
-  # Runs on pushes targeting the default branch
   push:
-    branches: ["main"]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+    branches:
+      - main  # Adjust this to match your main branch name
 
 jobs:
-  # Single deploy job since we're just deploying
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
       - name: Build Docker Image
-        run: docker build -t my-web-app:latest .
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
-        with:
-          # Upload entire repository
-          path: '.'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+        run: |
+          docker build -t hello-world-web-app:latest .
+          docker images  # Display a list of Docker images for verification
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Start Docker Container for Testing
+        run: |
+          docker run -d -p 8080:80 --name hello-world-container hello-world-web-app:latest
+          sleep 5  # Give the container some time to start
+
+      - name: Run Tests (Example)
+        run: |
+          # You can add your testing commands here.
+          # For a "Hello, World!" app, you might not have extensive tests.
+          # This is a placeholder for your specific testing requirements.
+
+      - name: Stop Docker Container
+        run: |
+          docker stop hello-world-container
+          docker rm hello-world-container
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Start Docker Container for Deployment
+        run: |
+          docker run -d -p 8080:80 --name hello-world-container hello-world-web-app:latest
+          sleep 5  # Give the container some time to start
+
+      - name: Deploy to Localhost (Example)
+        run: |
+          # You can add deployment commands here.
+          # For a local deployment, this might involve copying files or configuring a local web server.
+          # This is a placeholder for your specific deployment requirements.
+
+      - name: Stop Docker Container
+        run: |
+          docker stop hello-world-container
+          docker rm hello-world-container
