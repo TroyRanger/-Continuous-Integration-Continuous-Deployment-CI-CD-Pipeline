@@ -79,7 +79,7 @@ jobs:
           DOCKERHUB_USERNAME: ${{ secrets.troyranger }}
           DOCKERHUB_TOKEN: ${{ secrets.dckr_pat_pvzASTd88DqN__jk87hH9MprqBw }}
         run: |
-          echo "$dckr_pat_pvzASTd88DqN__jk87hH9MprqBw" | docker login -u "$troyranger" --password-stdin
+          echo "dckr_pat_pvzASTd88DqN__jk87hH9MprqBw" | docker login -u "troyranger" --password-stdin
 
       - name: Pull Docker Image
         run: |
