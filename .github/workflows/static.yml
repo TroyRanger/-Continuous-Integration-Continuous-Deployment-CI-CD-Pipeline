@@ -14,9 +14,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up Docker
-        uses: docker/setup-docker@v2
-        with:
-          docker-version: '20.10.11'  # Specify the desired Docker version
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y docker.io
 
       - name: Build Docker Image
         run: |
@@ -24,6 +24,7 @@ jobs:
           docker images  # Display a list of Docker images for verification
 
       # Add additional steps for testing, pushing to a container registry, or deploying as needed
+
 
 
       # Add additional steps for testing, pushing to a container registry, or deploying as needed
