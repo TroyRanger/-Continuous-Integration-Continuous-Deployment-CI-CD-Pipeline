@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket         = "my-terraform-state-bucket" # Replace with your bucket name
+    bucket         = "troyrangerbucket" # Replace with your bucket name
     key            = "terraform.tfstate"
     region         = "us-east-1" # Replace with your desired region
     encrypt        = true
