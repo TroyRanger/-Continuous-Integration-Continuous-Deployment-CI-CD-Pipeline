@@ -19,7 +19,7 @@ jobs:
           docker build -t hello-world-web-app:latest .
           docker images  # Display a list of Docker images for verification
 
-      # Add additional steps for testing, pushing to a container registry, or deploying as needed
+      # Add additional steps for testing, pushing to a container registry, or deploying as need
 
 
 
