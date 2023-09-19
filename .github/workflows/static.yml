@@ -11,12 +11,13 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Docker
         run: |
-          sudo apt-get update -y
-          sudo apt-get install -y docker.io
+          curl -fsSL https://get.docker.com | sh
+          sudo usermod -aG docker $USER  # Add the current user to the docker group to run Docker without sudo
+          newgrp docker  # Activate the changes to group membership
 
       - name: Build Docker Image
         run: |
@@ -24,7 +25,6 @@ jobs:
           docker images  # Display a list of Docker images for verification
 
       # Add additional steps for testing, pushing to a container registry, or deploying as needed
-
 
 
       # Add additional steps for testing, pushing to a container registry, or deploying as needed
