@@ -28,6 +28,17 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
            terraform_version: 1.0.0  # Specify your desired Terraform version
+      - name: Terraform Init
+        run: terraform init
+        working-directory: ./terraform  # Path to your Terraform configuration files
+
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+        working-directory: ./terraform
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve tfplan
+        working-directory: ./terraform
 
 
 
