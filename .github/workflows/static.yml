@@ -1,4 +1,4 @@
-name: Build Docker Image
+name: Hello World CI/CD
 
 on:
   push:
