@@ -44,9 +44,7 @@ jobs:
         run: |
           echo "dckr_pat_pvzASTd88DqN__jk87hH9MprqBw" | docker login -u "troyranger" --password-stdin
 
-      - name: Tag Docker Image
-        run: |
-          docker tag troyranger/hello-world-web-app:1.0 troyranger/hello-world-web-app:1.0
+
 
       - name: Push Docker Image to Registry
         run: |
