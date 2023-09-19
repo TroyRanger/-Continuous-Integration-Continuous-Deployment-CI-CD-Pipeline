@@ -61,18 +61,20 @@ jobs:
           docker stop hello-world-container
           docker rm hello-world-container
 
+
   deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2.1.0
 
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.troyranger }}
-          password: ${{ secrets.dckr_pat_pvzASTd88DqN__jk87hH9MprqBw }}
+      - name: Log in to Docker Hub Manually
+        run: |
+          echo ${{ secrets.dckr_pat_pvzASTd88DqN__jk87hH9MprqBw }} | docker login -u ${{ secrets.troyranger }} --password-stdin
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.troyranger }}
+          DOCKERHUB_TOKEN: ${{ secrets.dckr_pat_pvzASTd88DqN__jk87hH9MprqBw }}
 
       - name: Pull Docker Image
         run: |
@@ -94,3 +96,4 @@ jobs:
         run: |
           docker stop hello-world-container
           docker rm hello-world-container
+
