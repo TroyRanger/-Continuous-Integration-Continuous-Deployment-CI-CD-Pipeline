@@ -67,7 +67,17 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      - name: Set up Docker
+        run: |
+          curl -fsSL https://get.docker.com | sh
+          sudo usermod -aG docker $USER  # Add the current user to the docker group to run Docker without sudo
+          newgrp docker  # Activate the changes to group membership
+
+      - name: Pull Docker Image
+        run: |
+          docker pull hello-world-web-app:1.0
 
       - name: Start Docker Container for Deployment
         run: |
@@ -84,3 +94,4 @@ jobs:
         run: |
           docker stop hello-world-container
           docker rm hello-world-container
+
