@@ -84,7 +84,7 @@ jobs:
       - name: Pull Docker Image
         run: |
           docker login -u "troyranger" --password-stdin <<< "dckr_pat_pvzASTd88DqN__jk87hH9MprqBw"
-          docker pull hello-world-web-app:1.0
+          docker pull troyranger/hello-world-web-app:1.0
 
 
       # Add deployment steps here
