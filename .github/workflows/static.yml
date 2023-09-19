@@ -61,14 +61,6 @@ jobs:
           docker stop hello-world-container
           docker rm hello-world-container
 
-name: Deploy Dockerized Web App
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
   deploy:
     runs-on: ubuntu-latest
 
