@@ -26,12 +26,24 @@ jobs:
 
       # Add additional steps for testing, pushing to a container registry, or deploying as needed
 
+
   test:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      - name: Set up Docker
+        run: |
+          curl -fsSL https://get.docker.com | sh
+          sudo usermod -aG docker $USER  # Add the current user to the docker group to run Docker without sudo
+          newgrp docker  # Activate the changes to group membership
+
+      - name: Build Docker Image
+        run: |
+          docker build -t hello-world-web-app:1.0 -f Continuous-Integration-Continuous-Deployment-CI-CD-Pipeline/Dockerfile .
+          docker images  # Display a list of Docker images for verification
 
       - name: Start Docker Container for Testing
         run: |
@@ -40,7 +52,7 @@ jobs:
 
       - name: Run Tests (Example)
         run: |
-          # You can add your testing commands here.
+          # Add your testing commands here.
           # For a "Hello, World!" app, you might not have extensive tests.
           # This is a placeholder for your specific testing requirements.
 
@@ -48,6 +60,7 @@ jobs:
         run: |
           docker stop hello-world-container
           docker rm hello-world-container
+
 
   deploy:
     runs-on: ubuntu-latest
