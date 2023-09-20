@@ -30,6 +30,6 @@ resource "aws_iam_policy" "ec2_policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "ec2_attachment" {
-  policy_arn = aws_iam_policy.ec2_policy.arn
-  role       = aws_iam_role.ec2_role.name
+  policy_arn = arn:aws:iam::862570564189:instance-profile/Hello123
+  role       = arn:aws:iam::862570564189:role/Hello123
 }
