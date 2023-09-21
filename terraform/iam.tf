@@ -24,7 +24,7 @@ resource "aws_iam_policy" "ec2_policy" {
     Statement = [{
       Action = ["s3:GetObject"],
       Effect = "Allow",
-      Resource = "arn:aws:s3:::my-bucket/*"
+      Resource = "arn:aws:s3:::troyrangerbucket"
     }]
   })
 }
