@@ -28,6 +28,16 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
            terraform_version: 1.0.0  # Specify your desired Terraform version
+
+      - name: Set AWS Credentials
+        env:
+         AWS_ACCESS_KEY_ID: ${{ secrets.AKIA4RVJWJJORJPX4ZRA }}
+         AWS_SECRET_ACCESS_KEY: ${{ secrets.opL///QofuV2jLd1LoaWeoKxpgfr2hBz7eYTDZjU }}
+        run: |
+         echo "AKIA4RVJWJJORJPX4ZRA=$AKIA4RVJWJJORJPX4ZRA" >> $GITHUB_ENV
+         echo "opL///QofuV2jLd1LoaWeoKxpgfr2hBz7eYTDZjU=$opL///QofuV2jLd1LoaWeoKxpgfr2hBz7eYTDZjU" >> $GITHUB_ENV
+
+           
       - name: Terraform Init
         run: terraform init
         working-directory: ./terraform  # Path to your Terraform configuration files
